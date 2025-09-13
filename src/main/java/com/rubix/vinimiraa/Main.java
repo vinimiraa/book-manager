@@ -184,7 +184,7 @@ public class Main
             if(livro != null) 
             {
                 System.out.println(livro.formatado( ));
-                System.out.println();
+                System.out.println( );
 
                 int opcao = 0;
                 do
@@ -194,7 +194,8 @@ public class Main
                     atualizarCampo(livro, opcao);
                 } while (opcao!= 0);
                 
-                if(IO.confirmarAcao("\nConfirma atualização do livro? (S/N)")) {
+                if(IO.confirmarAcao("\nConfirma atualização do livro? (S/N)")) 
+                {
                     if(livroDAO.update(livro))
                         System.out.println(GREEN + "Livro atualizado com sucesso!\n" + RESET);
                 } else {
