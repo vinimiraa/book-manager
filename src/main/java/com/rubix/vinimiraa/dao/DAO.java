@@ -11,7 +11,7 @@ public class DAO {
 		conexao = null;
 	}
 
-	public boolean conectar( )
+	public boolean connect( )
 	{
 		boolean conectado = false;
 		
@@ -23,7 +23,7 @@ public class DAO {
 		{
 			this.conexao = DriverManager.getConnection(url);
 			conectado = (this.conexao == null);
-			System.out.println("Conexão efetuado com SQLite!");
+			// System.out.println("Conexão efetuado com SQLite!");
 		} catch (SQLException sqle) {
 			System.out.println("Erro ao conectar com o banco de dados: " + sqle.getMessage( ));
 		}
@@ -31,7 +31,7 @@ public class DAO {
 		return conectado;
 	}
 	
-	public boolean desconectar( )
+	public boolean disconnect( )
 	{
 		boolean desconectado = false;
 		

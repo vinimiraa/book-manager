@@ -2,7 +2,9 @@ package com.rubix.vinimiraa.model;
 
 import java.time.LocalDate;
 
-public class Livro 
+import com.rubix.vinimiraa.util.IO;
+
+public class Livro implements Comparable<Livro>
 {
     private int id;                    // banco de dados
     private String titulo;             // obrigatorio
@@ -60,14 +62,36 @@ public class Livro
     public String toString( )
     {
         return (
-            "\nID................:" + this.id             +
-            "\nTitulo............:" + this.titulo         +
-            "\nAutor.............:" + this.autor          +
-            "\nPreco.............:" + this.preco          +
-            "\nEditora...........:" + this.editora        +
-            "\nData da Publicacao:" + this.dataPublicacao +
-            "\nISBN..............:" + this.isbn           + "\n"
+            "Livro{" +
+                "id="               + id             +
+                ", titulo='"        + titulo         + '\'' +
+                ", autor='"         + autor          + '\'' +
+                ", preco="          + preco          +
+                ", editora='"       + editora        + '\'' +
+                ", dataPublicacao=" + dataPublicacao +
+                ", isbn="           + isbn           +
+            '}'
         );
+    }
+
+    public String formatado( ) 
+    {
+    return String.format(
+        "ID: %d, Título: %s, Autor: %s, Preço: R$ %.2f, Editora: %s, Data de Publicação: %s, ISBN: %s",
+        id,
+        titulo,
+        autor,
+        preco != null ? preco : 0.0,
+        editora != null ? editora : "N/A",
+        dataPublicacao != null ? dataPublicacao.toString() : "N/A",
+        isbn != null ? isbn.toString() : "N/A"
+    );
+}
+
+
+    @Override
+    public int compareTo(Livro outro) {
+        return IO.strNormalize(this.getTitulo()).compareTo(IO.strNormalize(outro.getTitulo()));
     }
 
     // Builder

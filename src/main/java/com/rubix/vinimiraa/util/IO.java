@@ -1,6 +1,8 @@
 package com.rubix.vinimiraa.util;
 
 import java.util.Scanner;
+import java.util.regex.Pattern;
+import java.text.Normalizer;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -131,7 +133,7 @@ public class IO
 
         System.out.println(mensagem);
         char resposta = console.nextLine( ).charAt(0);
-        if(resposta == 'S' || resposta == 's') confirmacao = true;
+        if(resposta == 'S' || resposta == 's' || resposta == 'Y' || resposta == 'y') confirmacao = true;
 
         return confirmacao;
     }
@@ -141,4 +143,11 @@ public class IO
         System.out.print("\nPressione ENTER para continuar...");
         console.nextLine( );
     } // pressEnter ( )
+
+    public static String strNormalize(String str) 
+    {
+        String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern.matcher(nfdNormalizedString).replaceAll("").toLowerCase();
+    }
 }

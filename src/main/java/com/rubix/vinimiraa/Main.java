@@ -1,7 +1,11 @@
 package com.rubix.vinimiraa;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
+
+import com.rubix.vinimiraa.dao.LivroDAO;
 import com.rubix.vinimiraa.model.Livro;
 import com.rubix.vinimiraa.util.IO;
 
@@ -11,6 +15,7 @@ public class Main
     protected static final String GREEN = "\u001B[32m";
     protected static final String RED   = "\u001B[31m";
     protected static final String RESET = "\u001B[0m";
+    private static LivroDAO livroDAO = new LivroDAO( );
 
     public static void main(String[] args) 
     {
@@ -22,8 +27,8 @@ public class Main
                 opcoesMenu( );
                 opcao = lerOpcao( );
                 executarOpcao(opcao);
-            } while(opcao != 0);
-        } catch(Exception e) {
+            } while (opcao != 0);
+        } catch (Exception e) {
             e.printStackTrace( );
         } finally {
             console.close();
@@ -32,8 +37,8 @@ public class Main
 
     private static void opcoesMenu( )
     {
-        System.out.println("Rubix"                         );
-        System.out.println("Gerenciador de Livros"         );
+        System.out.println("------------------------------");
+        System.out.println("Rubix - Gerenciador de Livros" );
         System.out.println("Vinicius Miranda de Araujo"    );
         System.out.println("------------------------------");
         System.out.println("> Inicio"                      );
@@ -81,7 +86,7 @@ public class Main
                 excluirLivro ();
                 break;
             default:
-                System.out.println( RED + "Opção inválida!" + RESET);
+                System.err.println(RED + "Opção inválida!\n" + RESET);
                 break;
         }
     }
@@ -99,7 +104,7 @@ public class Main
                         .editora(editora)
                         .dataPublicacao(dataPublicacao)
                         .isbn(isbn)
-                        .build();
+                        .build( );
     }
 
     public static void cadastrarLivro( )
@@ -112,38 +117,108 @@ public class Main
             {
                 if(IO.confirmarAcao("\nConfirma cadastro do livro? (S/N)"))
                 {
-                    System.out.println("Inserindo no BD");
-                    System.out.println(livro);
+                    if(livroDAO.insert(livro))
+                        System.out.println(GREEN + "Livro cadastrado com sucesso!\n" + RESET);
                 } else {
-                    System.out.println(RED + "Operação cancelada!" + RESET);
+                    System.out.println(RED + "Operação cancelada!\n" + RESET);
                 }
             }
         } catch(Exception e) {
-            System.out.println(RED + "Erro ao cadastrar um livro: " + e.getMessage() + RESET);
+            System.err.println(RED + "Erro ao cadastrar um livro: " + e.getMessage() + RESET);
         }
     }
-
+    
     public static void listarLivros( )
     {
         System.out.println("\n> Listar os Livros");
-        
+        try 
+        {
+            List<Livro> livros = livroDAO.getAll( );
+
+            if(livros != null)
+            {
+                Collections.sort(livros);
+    
+                for (Livro livro : livros) {
+                    System.out.println(livro.formatado( ));
+                }
+                System.out.println( );
+            } else {
+                System.err.println(RED + "Náo há livros cadastrados na base de dados!\n" + RESET);
+            }
+            
+        } catch (Exception e) {
+            System.err.println(RED + "Erro ao listar os livros: " + e.getMessage() + RESET);
+        }
     }
     
     public static void buscarLivro( )
     {
         System.out.println("\n> Buscar um Livro");
-        
+        try
+        {
+            int id = IO.lerInteger("Digite o ID do livro: ", false);
+            Livro livro = livroDAO.getById(id);
+
+            if(livro != null) 
+            {
+                System.out.println(livro.formatado( ));
+                System.out.println( );
+            }
+            else {
+                System.out.println("Livro não encontrado!\n");  
+            }
+        } catch (Exception e) {
+            System.err.println(RED + "Erro ao buscar um livro: " + e.getMessage() + RESET);
+        }
     }
     
+    // TODO
     public static void atualizarLivro( )
     {
         System.out.println("\n> Atualizar um Livro");
+        try
+        {
+            int id = IO.lerInteger("Digite o ID do livro: ", false);
+            Livro livro = livroDAO.getById(id);
 
+            if(livro != null) 
+            {
+                System.out.println(livro.formatado( ));
+                System.out.println();
+            }
+            else {
+                System.out.println("Livro não encontrado!\n");    
+            }
+        } catch (Exception e) {
+            System.err.println(RED + "Erro ao atualizar um livro: " + e.getMessage() + RESET);
+        }
     }
 
     public static void excluirLivro( )
     {
         System.out.println("\n> Excluir um Livro");
+        try
+        {
+            int id = IO.lerInteger("Digite o ID do livro: ", false);
+            Livro livro = livroDAO.getById(id);
 
+            if(livro != null)
+            {
+                System.out.println(livro.formatado( ));
+                
+                if(IO.confirmarAcao("\nConfirma exclusão do livro? (S/N)")) {
+                    if(livroDAO.delete(id))
+                        System.out.println(GREEN + "Livro excluido com sucesso!\n" + RESET);
+                } else {
+                    System.out.println(RED + "Operação cancelada!\n" + RESET);
+                }
+            }
+            else {
+                System.out.println("Livro não encontrado!\n");  
+            }
+        } catch (Exception e) {
+            System.err.println(RED + "Erro ao excluir um livro: " + e.getMessage() + RESET);
+        }
     }
 }
