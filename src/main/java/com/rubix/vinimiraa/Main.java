@@ -46,7 +46,7 @@ public class Main
         System.out.println("2 - Listar Livros"             );
         System.out.println("3 - Buscar Livro"              );
         System.out.println("4 - Atualizar Livro"           );
-        System.out.println("4 - Excluir Livro"             );
+        System.out.println("5 - Excluir Livro"             );
         System.out.println("0 - Sair"                      );
         System.out.print  ("Digite o número da opção: "    );
     }
@@ -173,7 +173,6 @@ public class Main
         }
     }
     
-    // TODO
     public static void atualizarLivro( )
     {
         System.out.println("\n> Atualizar um Livro");
@@ -186,12 +185,79 @@ public class Main
             {
                 System.out.println(livro.formatado( ));
                 System.out.println();
+
+                int opcao = 0;
+                do
+                {
+                    menuCamposAtualizacao( );
+                    opcao = lerOpcao( );
+                    atualizarCampo(livro, opcao);
+                } while (opcao!= 0);
+                
+                if(IO.confirmarAcao("\nConfirma atualização do livro? (S/N)")) {
+                    if(livroDAO.update(livro))
+                        System.out.println(GREEN + "Livro atualizado com sucesso!\n" + RESET);
+                } else {
+                    System.out.println(RED + "Operação cancelada!\n" + RESET);
+                }
             }
             else {
                 System.out.println("Livro não encontrado!\n");    
             }
         } catch (Exception e) {
             System.err.println(RED + "Erro ao atualizar um livro: " + e.getMessage() + RESET);
+        }
+    }
+
+    private static void menuCamposAtualizacao( )
+    {
+        System.out.println("Qual campo deseja atualizar?");
+        System.out.println("1 - Título"                  );
+        System.out.println("2 - Autor"                   );
+        System.out.println("3 - Preço"                   );
+        System.out.println("4 - Editora"                 );
+        System.out.println("5 - Data de Publicação"      );
+        System.out.println("6 - ISBN"                    );
+        System.out.println("0 - Finalizar"               );
+        System.out.print  ("Digite o número da opção: "  );
+    }
+
+    private static void atualizarCampo(Livro livro, int opcao)
+    {
+        switch (opcao) 
+        {
+            case 0:
+                System.out.println("Livro atualizado:");
+                System.out.println(livro.formatado( ));
+                System.out.println( );
+                break;
+            case 1:
+                String novoTitulo = IO.lerString("\nDigite o novo título: ", 2, 255, false, false);
+                livro.setTitulo(novoTitulo);
+                break;
+            case 2:
+                String novoAutor = IO.lerString("\nDigite o novo autor: ", 2, 255, false, false);
+                livro.setAutor(novoAutor);
+                break;
+            case 3:
+                double novoPreco = IO.lerDouble("\nDigite o novo preço: ", false);
+                livro.setPreco(novoPreco);
+                break;
+            case 4:
+                String novaEditora = IO.lerString("\nDigite a nova editora (opcional): ", 2, 255, true, false);
+                livro.setEditora(novaEditora);
+                break;
+            case 5:
+                LocalDate novaDataPublicacao = IO.lerData("\nDigite a nova data de publicação (opcional): ", true);
+                livro.setDataPublicacao(novaDataPublicacao);
+                break;
+            case 6:
+                Integer novoIsbn = IO.lerInteger("\nDigite o novo ISBN (opcional):", true);
+                livro.setIsbn(novoIsbn);
+                break;
+            default:
+                System.err.println(RED + "Opção inválida!\n" + RESET);
+                break;
         }
     }
 

@@ -14,7 +14,7 @@ public class LivroDAO extends DAO
     {
         super( );
         connect( );
-        createTable();
+        createTable( );
     }
 
     private void createTable( )
@@ -32,8 +32,8 @@ public class LivroDAO extends DAO
                 """;
         try (PreparedStatement pst = conexao.prepareStatement(query)) {
             pst.executeUpdate( );
-        } catch (Exception e) {
-            System.err.println("Erro ao criar tabela 'livro': " + e.getMessage( ));
+        } catch (SQLException sqle) {
+            System.err.println("Erro ao criar tabela 'livro': " + sqle.getMessage( ));
         }
     }
 
@@ -49,13 +49,13 @@ public class LivroDAO extends DAO
             pst.setDouble(3, livro.getPreco( ));
             pst.setString(4, livro.getEditora( ));
 
-            if(livro.getDataPublicacao() != null)
-                pst.setDate(5, java.sql.Date.valueOf(livro.getDataPublicacao()));
+            if(livro.getDataPublicacao( ) != null)
+                pst.setDate(5, java.sql.Date.valueOf(livro.getDataPublicacao( )));
             else
                 pst.setNull(5, java.sql.Types.DATE);
 
-            if(livro.getIsbn() != null)
-                pst.setInt(6, livro.getIsbn());
+            if(livro.getIsbn( ) != null)
+                pst.setInt(6, livro.getIsbn( ));
             else
                 pst.setNull(6, java.sql.Types.INTEGER);
 
@@ -86,7 +86,7 @@ public class LivroDAO extends DAO
             ResultSet rs = pst.executeQuery( )
         ) 
         {
-            while (rs.next())
+            while (rs.next( ))
             {
                 Livro livro = new Livro( );
                 livro.setId(rs.getInt("id"));
@@ -97,7 +97,7 @@ public class LivroDAO extends DAO
 
                 java.sql.Date data = rs.getDate("dataPublicacao");
                 if(data != null)
-                    livro.setDataPublicacao(data.toLocalDate());
+                    livro.setDataPublicacao(data.toLocalDate( ));
             
                 int isbn = rs.getInt("isbn");
                 if(rs.wasNull( ) == false)

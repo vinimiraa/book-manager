@@ -54,7 +54,7 @@ public class IO
             if(data != null)
                 dataCorreta = true;
 
-        } while(dataCorreta == false);
+        } while (dataCorreta == false);
         
         return data;
     } 

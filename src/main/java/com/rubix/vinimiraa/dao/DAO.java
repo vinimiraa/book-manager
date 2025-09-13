@@ -4,7 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DAO {
+public class DAO 
+{
 	protected Connection conexao;
 
 	public DAO( ) {
@@ -37,7 +38,7 @@ public class DAO {
 		
 		try
 		{
-			this.conexao.close();
+			this.conexao.close( );
 			desconectado = true;
 		} catch (SQLException sqle) {
 			System.out.println("Erro ao desconectar do banco de dados: " + sqle.getMessage( ));
