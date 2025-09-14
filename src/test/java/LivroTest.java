@@ -1,12 +1,19 @@
-import org.junit.jupiter.api.Test;
+// import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Disabled;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
 import com.rubix.vinimiraa.model.Livro;
 
+/**
+ * Classe de teste para a classe Livro.
+ * Utiliza JUnit 5 para testar os diferentes construtores e métodos da classe Livro.
+ */
 class LivroTest 
 {
+    /** 
+     * Testa a criação de um livro usando o padrão Builder com todos os atributos.
+     */
     @Disabled
     void criarLivroBuilder( ) 
     {
@@ -24,6 +31,9 @@ class LivroTest
         assertEquals(12345, livro.getIsbn());
     }
 
+    /** 
+     * Testa a criação de um livro usando o padrão Builder com apenas os atributos obrigatórios.
+     */
     @Disabled
     void criarLivroBuilderObrigatorios( ) 
     {
@@ -38,6 +48,9 @@ class LivroTest
         assertNull(livro.getIsbn());
     }
 
+    /** 
+     * Testa a criação de um livro usando o construtor completo.
+     */
     @Disabled
     void criarLivroConstrutorCompleto( ) 
     {
@@ -53,6 +66,9 @@ class LivroTest
         assertEquals(987654, livro.getIsbn());
     }
 
+    /** 
+     * Testa a criação de um livro usando o construtor vazio e setters.
+     */
     @Disabled
     void criarLivroConstrutorVazio( )
     {
@@ -67,6 +83,9 @@ class LivroTest
         assertNull(livro.getIsbn());
     }
 
+    /** 
+     * Testa o método toString do livro.
+     */
     @Disabled
     void testarToString( ) 
     {

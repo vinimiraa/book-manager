@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.rubix.vinimiraa"},{"l":"com.rubix.vinimiraa.dao"},{"l":"com.rubix.vinimiraa.model"},{"l":"com.rubix.vinimiraa.util"}];updateSearchResults();

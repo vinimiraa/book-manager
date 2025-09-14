@@ -9,14 +9,64 @@ import com.rubix.vinimiraa.dao.LivroDAO;
 import com.rubix.vinimiraa.model.Livro;
 import com.rubix.vinimiraa.util.IO;
 
+/**
+ * Classe principal do aplicativo Rubix - Gerenciador de Livros.
+ * <p>
+ * Esta classe fornece um menu interativo para o usuário realizar operações CRUD
+ * (Create, Read, Update, Delete) em livros armazenados em um banco de dados SQLite.
+ * O menu é apresentado no console, permitindo cadastrar, listar, buscar, atualizar e
+ * excluir livros.
+ * </p>
+ *
+ * <h2>Funcionalidades:</h2>
+ * <ul>
+ *   <li>Cadastrar novo livro com título, autor, preço, editora, data de publicação e ISBN.</li>
+ *   <li>Listar todos os livros cadastrados, ordenados por título.</li>
+ *   <li>Buscar livro pelo ID e exibir detalhes formatados.</li>
+ *   <li>Atualizar campos específicos de um livro existente.</li>
+ *   <li>Excluir livro pelo ID, após confirmação do usuário.</li>
+ * </ul>
+ *
+ * <h2>Exemplo de uso:</h2>
+ * <pre>{@code
+ * public static void main(String[] args) {
+ *     Main.main(args); // Inicia a aplicação e exibe o menu interativo
+ * }
+ * }</pre>
+ *
+ * <p>Os métodos utilizam a classe utilitária {@link IO} para entrada de dados e validação.</p>
+ */
 public class Main 
 {
+    /**
+     * Scanner para leitura de entrada do console.
+     */
     private static Scanner console = new Scanner(System.in);
+
+    /**
+     * Códigos ANSI para cor verde no console.
+     */
     protected static final String GREEN = "\u001B[32m";
+    /**
+     * Códigos ANSI para cor vermelha no console.
+     */
     protected static final String RED   = "\u001B[31m";
+    
+    /**
+     * Código ANSI para resetar a cor no console.
+     */
     protected static final String RESET = "\u001B[0m";
+
+    /**
+     * Instância do DAO para operações de banco de dados relacionadas a livros.
+     */
     private static LivroDAO livroDAO = new LivroDAO( );
 
+    /**
+     * Método principal que inicia o aplicativo e controla o fluxo do menu.
+     *
+     * @param args Argumentos de linha de comando (não utilizados).
+     */
     public static void main(String[] args) 
     {
         try
@@ -35,6 +85,9 @@ public class Main
         }
     }
 
+    /**
+     * Exibe o menu principal de opções no console.
+     */
     private static void opcoesMenu( )
     {
         System.out.println("------------------------------");
@@ -51,6 +104,11 @@ public class Main
         System.out.print  ("Digite o número da opção: "    );
     }
 
+    /**
+     * Lê a opção escolhida pelo usuário no menu.
+     *
+     * @return Um inteiro representando a opção escolhida.
+     */
     private static int lerOpcao( ) 
     {
         int opcao = 0;
@@ -63,6 +121,11 @@ public class Main
         return opcao;
     }
 
+    /**
+     * Executa a ação correspondente à opção escolhida pelo usuário.
+     *
+     * @param opcao A opção escolhida no menu.
+     */
     private static void executarOpcao(int opcao)
     {
         switch(opcao) 
@@ -91,6 +154,11 @@ public class Main
         }
     }
 
+    /**
+     * Lê os dados de um livro a partir do console.
+     *
+     * @return Um objeto {@link Livro} com os dados fornecidos pelo usuário.
+     */
     private static Livro lerLivro( )
     {
         String titulo = IO.lerString("Digite o título (obrigatório): ", 2, 255, false, false);
@@ -107,6 +175,10 @@ public class Main
                         .build( );
     }
 
+    /**
+     * Cadastra um novo livro no banco de dados.
+     * Solicita confirmação do usuário antes de inserir.
+     */
     public static void cadastrarLivro( )
     {
         System.out.println("\n> Cadastrar um Livro");
@@ -128,6 +200,10 @@ public class Main
         }
     }
     
+    /**
+     * Lista todos os livros cadastrados no banco de dados,
+     * exibindo suas informações de forma formatada e ordenada.
+     */
     public static void listarLivros( )
     {
         System.out.println("\n> Listar os Livros");
@@ -152,6 +228,9 @@ public class Main
         }
     }
     
+    /**
+     * Busca um livro pelo ID fornecido pelo usuário e exibe seus detalhes.
+     */
     public static void buscarLivro( )
     {
         System.out.println("\n> Buscar um Livro");
@@ -173,6 +252,10 @@ public class Main
         }
     }
     
+    /**
+     * Atualiza os dados de um livro existente.
+     * Permite alterar campos específicos antes de confirmar a atualização.
+     */
     public static void atualizarLivro( )
     {
         System.out.println("\n> Atualizar um Livro");
@@ -210,6 +293,9 @@ public class Main
         }
     }
 
+    /**
+     * Exibe o menu de campos que podem ser atualizados em um livro.
+     */
     private static void menuCamposAtualizacao( )
     {
         System.out.println("Qual campo deseja atualizar?");
@@ -223,6 +309,12 @@ public class Main
         System.out.print  ("Digite o número da opção: "  );
     }
 
+    /**
+     * Atualiza um campo específico de um livro de acordo com a opção escolhida.
+     *
+     * @param livro O objeto {@link Livro} a ser atualizado.
+     * @param opcao Número que indica qual campo atualizar.
+     */
     private static void atualizarCampo(Livro livro, int opcao)
     {
         switch (opcao) 
@@ -262,6 +354,10 @@ public class Main
         }
     }
 
+    /**
+     * Exclui um livro do banco de dados com base no ID fornecido pelo usuário.
+     * Solicita confirmação antes de remover.
+     */
     public static void excluirLivro( )
     {
         System.out.println("\n> Excluir um Livro");

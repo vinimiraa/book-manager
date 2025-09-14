@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"com.rubix.vinimiraa.model","l":"Livro.Builder"},{"p":"com.rubix.vinimiraa.dao","l":"DAO"},{"p":"com.rubix.vinimiraa.util","l":"IO"},{"p":"com.rubix.vinimiraa.model","l":"Livro"},{"p":"com.rubix.vinimiraa.dao","l":"LivroDAO"},{"p":"com.rubix.vinimiraa","l":"Main"}];updateSearchResults();

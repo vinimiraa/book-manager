@@ -8,8 +8,23 @@ import java.util.List;
 
 import com.rubix.vinimiraa.model.Livro;
 
+/**
+ * DAO específico para a entidade {@link Livro}.
+ * <p>
+ * Esta classe fornece métodos para operações CRUD
+ * (Create, Read, Update, Delete) no banco de dados SQLite.
+ * </p>
+ * 
+ * <p>
+ * Depende da classe {@link DAO} para a conexão e utiliza
+ * a entidade {@link Livro} como modelo de dados.
+ * </p>
+ */
 public class LivroDAO extends DAO
 {
+    /**
+     * Construtor que inicializa a conexão e cria a tabela 'livro' se não existir.
+     */
     public LivroDAO( )
     {
         super( );
@@ -17,6 +32,21 @@ public class LivroDAO extends DAO
         createTable( );
     }
 
+    /**
+     * Cria a tabela 'livro' no banco de dados se ela não existir.
+     * <p>
+     * A tabela contém os seguintes campos:
+     * <ul>
+     *   <li><b>id</b> (chave primária, autoincremento)</li>
+     *   <li><b>titulo</b> (texto, obrigatório)</li>
+     *   <li><b>autor</b> (texto, obrigatório)</li>
+     *   <li><b>preco</b> (real, obrigatório)</li>
+     *   <li><b>editora</b> (texto, opcional)</li>
+     *   <li><b>dataPublicacao</b> (data, opcional)</li>
+     *   <li><b>isbn</b> (inteiro, opcional)</li>
+     * </ul>
+     * </p>
+     */
     private void createTable( )
     {
         String query = """
@@ -37,6 +67,17 @@ public class LivroDAO extends DAO
         }
     }
 
+    /**
+     * Insere um novo livro no banco de dados.
+     * <p>
+     * Após a inserção, o ID gerado automaticamente será atribuído
+     * ao objeto {@link Livro} fornecido.
+     * </p>
+     *
+     * @param livro O objeto {@link Livro} a ser inserido.
+     * @return {@code true} se a inserção foi bem-sucedida,
+     *         {@code false} caso contrário.
+     */
     public boolean insert(Livro livro)
     {
         boolean inserido = false;
@@ -76,6 +117,12 @@ public class LivroDAO extends DAO
         return inserido;
     }
 
+    /**
+     * Recupera todos os livros do banco de dados.
+     *
+     * @return Uma lista de objetos {@link Livro}.
+     *         Nunca {@code null}, mas pode estar vazia se não houver registros.
+     */
     public List<Livro> getAll( )
     {
         List<Livro> livros = new LinkedList<>( );
@@ -112,6 +159,13 @@ public class LivroDAO extends DAO
         return livros;
     }
 
+    /**
+     * Recupera um livro do banco de dados pelo seu ID.
+     *
+     * @param id O ID do livro a ser recuperado.
+     * @return O objeto {@link Livro} correspondente ao ID, 
+     *         ou {@code null} se não encontrado.
+     */
     public Livro getById(int id)
     {
         Livro livro = null;
@@ -147,6 +201,13 @@ public class LivroDAO extends DAO
         return livro;
     }
 
+    /**
+     * Recupera um livro do banco de dados pelo seu ISBN.
+     *
+     * @param isbn O ISBN do livro a ser recuperado.
+     * @return O objeto {@link Livro} correspondente ao ISBN,
+     *         ou {@code null} se não encontrado.
+     */
     public Livro getByIsbn(int isbn)
     {
         Livro livro = null;
@@ -180,6 +241,13 @@ public class LivroDAO extends DAO
         return livro;
     }
 
+    /**
+     * Atualiza os dados de um livro no banco de dados.
+     *
+     * @param livro O objeto {@link Livro} com os dados atualizados.
+     * @return {@code true} se a atualização foi bem-sucedida,
+     *         {@code false} se não houve alterações (ex: ID inexistente).
+     */
     public boolean update(Livro livro)
     {
         boolean atualizado = false;
@@ -212,6 +280,13 @@ public class LivroDAO extends DAO
         return atualizado;
     }
 
+    /**
+     * Deleta um livro do banco de dados pelo seu ID.
+     *
+     * @param id O ID do livro a ser deletado.
+     * @return {@code true} se a deleção foi bem-sucedida,
+     *         {@code false} caso contrário.
+     */
     public boolean delete(int id)
     {
         boolean deletado = false;
