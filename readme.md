@@ -125,7 +125,7 @@ Digite o número da opção:
 
 ## Testes Unitários
 
-- Localizados em `src/test/java/com/rubix/vinimiraa/`.
+- Localizados em `src/test/java/`.
 - Bibliotecas usadas: **JUnit 5**
 - Exemplos de testes:
   - `LivroTest.java`: valida criação e atributos do livro.
@@ -140,18 +140,21 @@ mvn test
 
 ```
 book-manager/
-├─ docs/                   # Documentação gerada pelo Javadoc
-├─ src/
-│  ├─ main/java/
-│  │  └─ com/rubix/vinimiraa/
-│  │       ├─ Main.java
-│  │       ├─ dao/
-│  │       ├─ model/
-│  │       └─ util/
-│  └─ test/java/
-│       └─ com/rubix/vinimiraa/
-├─ target/                 # Build output (pode ser limpo com mvn clean)
-├─ livros.db               # Banco SQLite
+├─ docs/                     # Documentação gerada pelo Javadoc
+├─ src/                      # Código fonte
+│  ├─ main/
+│  │  ├─ java/
+│  │  │  └─ com/rubix/vinimiraa/
+│  │  │       ├─ Main.java
+│  │  │       ├─ dao/
+│  │  │       ├─ model/
+│  │  │       └─ util/
+│  │  └─ resources/
+│  │       └─ db/            # Script SQL
+│  └─ test/
+│       └─ java/             # Testes unitários
+├─ target/                   # Build output (pode ser limpo com mvn clean)
+├─ livros.db                 # Banco SQLite
 ├─ pom.xml
 └─ README.md
 ```
