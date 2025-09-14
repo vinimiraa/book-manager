@@ -1,0 +1,22 @@
+# Gerar docs/
+
+	javadoc -d docs \
+			-sourcepath src/main/java \
+			-subpackages com.rubix.vinimiraa \
+			-encoding UTF-8 \
+			-charset UTF-8 \
+			-author \
+			-version \
+			-windowtitle "Rubix Book Manager - Javadoc" \
+			-doctitle "<h1>Rubix Book Manager</h1><p>Documentação da aplicação</p>"
+			-quiet
+
+# Compilar
+
+	mvn compile
+
+# Executar
+
+	mvn compile exec:java
+	mvn compile exec:java -Dexec.args="-Xlint:none"
+
