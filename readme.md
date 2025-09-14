@@ -64,7 +64,7 @@ mvn compile
 Para executar diretamente pelo Maven:
 
 ```bash
-mvn exec:java -Dexec.mainClass="com.rubix.vinimiraa.Main"
+mvn exec:java
 ```
 
 > **Nota:** Não é recomendado executar diretamente com `java Main.java`, pois o Maven gerencia o classpath e dependências.
