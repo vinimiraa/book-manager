@@ -1,4 +1,4 @@
-# Gerar docs/
+# Gerar Documentação
 
 	javadoc -d docs \
 			-sourcepath src/main/java \
