@@ -93,9 +93,9 @@ public class Main
 
     private static Livro lerLivro( )
     {
-        String titulo = IO.lerString("Digite o título: ", 2, 255, false, false);
-        String autor = IO.lerString("Digite o autor: ", 2, 255, false, false);
-        double preco = IO.lerDouble("Digite o preço: ", false);
+        String titulo = IO.lerString("Digite o título (obrigatório): ", 2, 255, false, false);
+        String autor = IO.lerString("Digite o autor (obrigatório): ", 2, 255, false, false);
+        double preco = IO.lerDouble("Digite o preço (obrigatório): ", false);
         String editora = IO.lerString("Digite a editora (opcional): ", 2, 255, true, false);
         LocalDate dataPublicacao = IO.lerData("Digite a data de publicação (opcional): ", true);
         Integer isbn = IO.lerInteger("Digite o ISBN (opcional):", true);
@@ -228,7 +228,7 @@ public class Main
         switch (opcao) 
         {
             case 0:
-                System.out.println("Livro atualizado:");
+                System.out.println("\nLivro atualizado:");
                 System.out.println(livro.formatado( ));
                 System.out.println( );
                 break;
