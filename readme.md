@@ -8,7 +8,7 @@ Permite criar, listar, buscar, atualizar e excluir livros utilizando um banco de
 A documentação completa do código fonte está disponível na pasta [`docs/`](docs/).  
 Para abrir a documentação no navegador, clique no arquivo `index.html` ou use o link abaixo:
 
-[Abrir Documentação HTML](docs/index.html)
+[Abrir Documentação HTML](https://vinimiraa.github.io/book-manager/)
 
 Ela inclui informações detalhadas sobre cada classe, método, atributos e exemplos de uso.
 
